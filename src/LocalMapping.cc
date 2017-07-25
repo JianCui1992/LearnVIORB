@@ -246,7 +246,7 @@ bool LocalMapping::TryInitVIO(void)
     int N = vScaleGravityKF.size();
     KeyFrame* pNewestKF = vScaleGravityKF[N-1];
     vector<cv::Mat> vTwc;
-    vector<IMUPreintegrator> vIMUPreInt;
+    IMUPreintegrator::vector_t vIMUPreInt;
     // Store initialization-required KeyFrame data
     vector<KeyFrameInit*> vKFInit;
 

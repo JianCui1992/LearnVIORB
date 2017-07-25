@@ -70,7 +70,7 @@ void Tracking::RecomputeIMUBiasAndCurrentNavstate(NavState& nscur)
         frame.SetNavStateBiasGyr(bg);
     }
     // Re-compute IMU pre-integration
-    vector<IMUPreintegrator> v19IMUPreint;
+    IMUPreintegrator::vector_t v19IMUPreint;
     v19IMUPreint.reserve(20-1);
     for(size_t i=0; i<N; i++)
     {
