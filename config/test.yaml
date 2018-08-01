@@ -1,0 +1,143 @@
+%YAML:1.0
+
+image_path: /media/jianc/database/dataset_cj/vio/imgdir/
+imu_path: /media/jianc/database/dataset_cj/vio/listdir/imulist_radmin.txt.bei
+voc_path: /home/jianc/LearnVIORB/Vocabulary/ORBvoc.bin
+
+# 1: realtime, 0: non-realtime
+test.RealTime: 0
+# Time for visual-inertial initialization
+test.VINSInitTime: 1.0
+
+# Modify test.InitVIOTmpPath and bagfile to the correct path
+# Path to save tmp files/results
+test.InitVIOTmpPath: "/home/jianc/LearnVIORB/results/"
+
+## For good initialization (no movement at the beginning for some bag)
+test.DiscardTime: 0
+
+
+
+# Timestamp shift. Timage = Timu + image_delay
+td: 0.0125
+Camera.delaytoimu: 0.0125
+
+# acc=acc*9.8, if below is 1
+IMU.multiplyG: 0
+
+# camera-imu frame transformation, Pi = Tic * Pc
+
+#############################################################################################
+# 
+# CAMERA
+# 
+#############################################################################################
+
+
+CAMERA.image_width: 1280
+CAMERA.image_height: 720
+CAMERA.intrinsics.K: !!opencv-matrix
+    rows: 3
+    cols: 3
+    dt: f
+    data: [793.88823403, 0.0, 604.36116913,
+            0.0,    792.52058410, 374.73307786,
+            0.0,    0.0,    1.0]
+CAMERA.intrinsics.D: !!opencv-matrix
+    rows: 4
+    cols: 1
+    dt: f
+    data: [-0.05620386, -0.01322927, -0.00034181, 0.00058843]
+
+CAMERA.extrinsicRotation: !!opencv-matrix
+   rows: 3
+   cols: 3
+   dt: d
+   data: [ 9.9871196871443468e-01, 2.8558576171274851e-02,
+       -4.1938183956955977e-02, 4.2538368250040336e-02,
+       -2.0742840378161098e-02, 9.9887948312079666e-01,
+       2.7656658749059829e-02, -9.9937687700892675e-01,
+       -2.1930958180673032e-02 ]
+CAMERA.extrinsicTranslation: !!opencv-matrix
+   rows: 3
+   cols: 1
+   dt: d
+   data: [ 4.4940502704758800e-02, 8.3498950824823870e-01,
+       8.8960671312008011e-01 ]
+
+Camera.Tbc:
+ [9.9871196871443468e-01, 2.8558576171274851e-02, -4.1938183956955977e-02, 4.4940502704758800e-02,
+  4.2538368250040336e-02, -2.0742840378161098e-02, 9.9887948312079666e-01, 8.3498950824823870e-01,
+  2.7656658749059829e-02, -9.9937687700892675e-01,-2.1930958180673032e-02, 8.8960671312008011e-01,
+  0.0, 0.0, 0.0, 1.0]
+
+# Local Window size
+LocalMapping.LocalWindowSize: 20
+
+#--------------------------------------------------------------------------------------------
+# Camera Parameters. Adjust them!
+#--------------------------------------------------------------------------------------------
+
+# Camera calibration and distortion parameters (OpenCV) 
+Camera.fx: 793.88823403
+Camera.fy: 792.52058410
+Camera.cx: 604.36116913
+Camera.cy: 374.73307786
+
+Camera.k1: -0.05620386
+Camera.k2: -0.01322927
+Camera.p1: -0.00034181
+Camera.p2: 0.00058843
+
+Camera.width: 1280
+Camera.height: 720
+
+# Camera frames per second 
+Camera.fps: 20.0
+
+# IR projector baseline times fx (aprox.)
+Camera.bf: 40.0
+
+# Color order of the images (0: BGR, 1: RGB. It is ignored if images are grayscale)
+Camera.RGB: 1
+
+# Close/Far threshold. Baseline times.
+ThDepth: 40.0
+
+# Deptmap values factor
+DepthMapFactor: 1.0
+
+#--------------------------------------------------------------------------------------------
+# ORB Parameters
+#--------------------------------------------------------------------------------------------
+
+# ORB Extractor: Number of features per image
+ORBextractor.nFeatures: 1000
+
+# ORB Extractor: Scale factor between levels in the scale pyramid 
+ORBextractor.scaleFactor: 1.2
+
+# ORB Extractor: Number of levels in the scale pyramid 
+ORBextractor.nLevels: 8
+
+# ORB Extractor: Fast threshold
+# Image is divided in a grid. At each cell FAST are extracted imposing a minimum response.
+# Firstly we impose iniThFAST. If no corners are detected we impose a lower value minThFAST
+# You can lower these values if your images have low contrast   
+ORBextractor.iniThFAST: 25
+ORBextractor.minThFAST: 10
+
+#--------------------------------------------------------------------------------------------
+# Viewer Parameters
+#--------------------------------------------------------------------------------------------
+Viewer.KeyFrameSize: 0.05
+Viewer.KeyFrameLineWidth: 1
+Viewer.GraphLineWidth: 0.9
+Viewer.PointSize:2
+Viewer.CameraSize: 0.08
+Viewer.CameraLineWidth: 3
+Viewer.ViewpointX: 0
+Viewer.ViewpointY: -0.7
+Viewer.ViewpointZ: -1.8
+Viewer.ViewpointF: 500
+
